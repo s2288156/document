@@ -1,0 +1,13 @@
+plugins {
+    id 'java'
+}
+
+group 'com.log'
+version '0.0.1'
+
+dependencies {
+    implementation project(':es-service')
+    implementation project(':es-web')
+
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+}

@@ -6,5 +6,7 @@ group 'com.log'
 version '0.0.1'
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    implementation project(':es-api')
+    implementation project(':es-manager')
+    implementation project(':es-dao')
 }
