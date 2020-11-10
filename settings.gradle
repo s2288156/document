@@ -1,8 +1,0 @@
-rootProject.name = 'log-es'
-include 'es-service'
-include 'es-api'
-include 'es-dao'
-include 'es-manager'
-include 'es-web'
-include 'start'
-
