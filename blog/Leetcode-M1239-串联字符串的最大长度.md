@@ -1,4 +1,4 @@
-# Leetcode-Java-M1239-串联字符串的最大长度
+# Leetcode-M1239-串联字符串的最大长度
 
 
 
@@ -6,7 +6,7 @@
 
 ## 1. 题目
 
-[M1239]([1239. 串联字符串的最大长度 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/maximum-length-of-a-concatenated-string-with-unique-characters/))
+[M1239](https://leetcode-cn.com/problems/maximum-length-of-a-concatenated-string-with-unique-characters/)
 
 ## 2. 个人解题过程
 

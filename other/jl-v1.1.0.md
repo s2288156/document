@@ -14,7 +14,7 @@
  - Github：https://github.com/s2288156
 
  - 期望职位：JAVA高级程序员，架构师，Team Leader
- - 期望薪资：税后月薪15k
+ - 期望薪资：税后月薪18k
  - 期望城市：郑州
 
 
