@@ -47,3 +47,45 @@ server {
 
 ```
 
+
+
+# Docker
+
+
+
+## 安装后操作
+
+
+
+```shell
+# 创建一个docker Group 
+sudo groupadd docker 
+# 添加用户到docker用户组 
+sudo usermod -aG docker wuyang
+
+# centos8安装冲突问题
+yum erase podman buildah -y
+
+# 设置开机自启
+systemctl enable docker
+
+# 镜像加速
+sudo mkdir -p /etc/docker
+sudo tee /etc/docker/daemon.json <<-'EOF'
+{
+  "registry-mirrors": ["https://12zgkuiq.mirror.aliyuncs.com"]
+}
+EOF
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+
+#显示所有的容器，过滤出Exited状态的容器，取出这些容器的ID
+sudo docker ps -a|grep Exited|awk '{print $1}'
+# 停止全部容器
+docker stop $(docker ps -a -q)
+# 删除全部容器
+docker rm $(docker ps -a -q)
+# 删除孤立的容器
+sudo docker container prune
+```
+
