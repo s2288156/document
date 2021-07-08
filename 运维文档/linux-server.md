@@ -1,12 +1,8 @@
 [toc]
 
-# Ansible
+# 1. Ansible
 
-
-
-## 常用命令
-
-
+## 1.1 常用命令
 
 ```shell
 ansible <groupName> --list
@@ -24,17 +20,13 @@ ansible-playbook -e 'vars=xxx' a.yml
 -v #显示过程 -vv -vvv更详细
 ```
 
-
-
-## 常用模块(ansible-playbook)
+## 1.2 常用模块(ansible-playbook)
 
 - copy
 - script: `ansible all - script -a '/root/a.sh'` 执行脚本
 - unarchive
 - file
 - template
-
-
 
 循环语法：
 
@@ -47,14 +39,9 @@ server {
 
 ```
 
+# 2. Docker
 
-
-# Docker
-
-
-
-## 安装后操作
-
+## 2.1 安装后操作
 
 
 ```shell
@@ -87,5 +74,43 @@ docker stop $(docker ps -a -q)
 docker rm $(docker ps -a -q)
 # 删除孤立的容器
 sudo docker container prune
+```
+
+## 2.2 docker常用命令
+
+
+
+```shell
+docker build -t friendlyhello .  			# 通过当前文件夹的Dockerfile文件构建镜像
+docker run -p 4000:80 friendlyhello  		# 运行镜像，并将4000端口映射到容器的80端口上
+docker run -d -p 4000:80 friendlyhello      # Same thing, but in detached mode
+docker container ls                         # 所有运行中的容器列表
+docker container ls -a             			# 所有容器列表，包括没有运行的
+docker container stop <hash>           		# 正常关闭指定容器
+docker container kill <hash>         		# 强制关闭指定容器
+docker container rm <hash>        			# 从设备上删除指定容器
+docker container rm $(docker container ls -a -q)         # 删除所有容器
+docker container prune						# 删除孤立的容器
+docker image ls -a                          # 本机所有镜像列表
+docker image rm <image id>            		# 删除本机指定镜像
+docker image rm $(docker image ls -a -q)   	# 删除本机所有镜像
+docker login             					# 在这个命令窗口登录Docker凭证
+docker tag <image> username/repository:tag  # 为要上传到registry的镜像创建tag
+docker push username/repository:tag         # 将镜像推送到registry
+docker run username/repository:tag          # 从registry运行镜像
+docker exec -it <containerId> /bin/bash		# 进入容器
+# local copy to container
+docker cp [OPTIONS] CONTAINER:SRC_PATH    DEST_PATH
+# container to local
+docker cp [OPTIONS] SRC_PATH    CONTAINER:DEST_PATH
+```
+
+
+
+## 2.3 docker-compose常用命令
+
+
+
+```shell
 ```
 

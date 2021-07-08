@@ -1,5 +1,3 @@
-# 
-
 [toc]
 
 # 1. Linux常用命令
@@ -58,8 +56,6 @@ sudo vim /etc/systemd/resolved.conf
 
 sudo systemctl restart systemd-resolved.service
 ```
-
-
 
 ### 用户管理
 
@@ -217,9 +213,7 @@ chmod +x /usr/local/bin/docker-compose
 ```sh
 
 curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-
 sudo apt-get install -y nodejs
-
 
 ```
 
@@ -242,7 +236,6 @@ sudo apt-get install openssh-server
 sudo vi /etc/ssh/sshd_config
 Port 22 #默认即可，如果有端口占用可以自己修改
 PasswordAuthentication yes # 允许用户名密码方式登录
-
 
 如果提示 sshd error: could not load host key 则需要重新生成 key：
 
