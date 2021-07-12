@@ -124,6 +124,7 @@ export PATH=$MAVEN_HOME/bin:$JAVA_HOME/bin:$PATH
 ### 同步时间
 
 ```shell
+yum -y install ntp
 ntpdate -u ntp.api.bz
 
 sudo tzconfig
@@ -141,7 +142,7 @@ sudo shutdown -h now
 sudo init 6
 ```
 
-### ssh
+### ssh免密配置
 
 基于开源OpenSSH实现
 
@@ -166,15 +167,49 @@ ssh-copy-id <ip addr>
 - `device` 需要挂接的设备
 - `dir` 设备在系统上的挂接点
 
-### 系统服务管理-配开机自启
+### kvm常用命令
 
-```sh
-# 开机自启
-chkconfig <serviceName> on
-# 关闭开机自启
-chkconfig <serviceName> off
 
+
+```shell
+# 虚拟机列表查询
+virsh list --all
+# --name      --disk  需要修改
+virt-install  --virt-type kvm \
+ --os-type=linux \
+ --os-variant=rhel7 \
+ --name test-node1  \
+ --vcpus sockets=1,cores=4,threads=2  \
+ --ram 8192 \
+ --cdrom /home/iso/CentOS-7-x86_64-DVD-2003.iso \
+ --disk path=/home/images/test-node1.qcow2,size=250 \
+ --accelerate \
+ --network bridge=kbenp5s0   \
+ --connect=qemu:///system \
+ --graphics  vnc,password=zyzh2018,port=5950,listen=0.0.0.0 \
+ --noautoconsole
+ 
+# 创建快照
+virsh snapshot-create-as <kvm-name> <kvm-snapshot-name>
+# 查看指定虚拟机快照
+virsh snapshot-list <kvm-name>
+# 查看虚拟机快照文件位置
+ll -h /var/lib/libvirt/qemu/snapshot/kvm107/
+# 恢复虚拟机快照
+virsh snapshot-revert <kvm-name> <kvm-snapshot-name>
+# 删除执行虚拟机快照
+virsh snapshot-delete <kvm-name> <kvm-snapshot-name>
+
+## 修改虚拟机内存
+virsh shutdown <kvm-name>
+virsh setmaxmem <kvm-name> <kb>
+virsh start <kvm-name>
+virsh setmem <kvm-name> <kb>
 ```
+
+
+
+
 
 ## Nginx
 
@@ -195,27 +230,7 @@ sudo find / -name nginx*
 sudo rm -rf file /xxx/xxx/nginx*
 ```
 
-## docker 
 
-### docker-compose安装
-
-```sh
-# daocloud镜像
-curl -L https://get.daocloud.io/docker/compose/releases/download/1.25.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
-
-chmod +x /usr/local/bin/docker-compose
-```
-
-## nodejs
-
-### nodejs安装
-
-```sh
-
-curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-sudo apt-get install -y nodejs
-
-```
 
 ## 必备工具
 
@@ -223,23 +238,3 @@ sudo apt-get install -y nodejs
 
 `yum -y install lrzsz`
 
-# WSL相关
-
-## 开启ssh
-
-```sh
-
-sudo apt-get remove openssh-server
-sudo apt-get install openssh-server
-
-
-sudo vi /etc/ssh/sshd_config
-Port 22 #默认即可，如果有端口占用可以自己修改
-PasswordAuthentication yes # 允许用户名密码方式登录
-
-如果提示 sshd error: could not load host key 则需要重新生成 key：
-
-dpkg-reconfigure openssh-server
-sudo service ssh restart
-
-```
